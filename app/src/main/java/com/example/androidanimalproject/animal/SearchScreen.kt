@@ -74,6 +74,6 @@ fun SearchScreen() {
 
 @Preview
 @Composable
-private fun SearchscreenPrev() {
+private fun SearchScreenPrev() {
     SearchScreen()
 }
