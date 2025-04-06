@@ -82,7 +82,8 @@ fun PostScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 20.dp)
+                .padding(bottom = 49.dp),
             contentAlignment = Alignment.BottomEnd
         ) {
             Button(
