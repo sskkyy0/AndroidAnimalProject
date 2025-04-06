@@ -27,9 +27,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun PostScreen() {
+fun PostScreen(navController: NavController) {
     val orangeColor = Color(0xFFFFA938)
     val greyColor = Color(0xFFA0A0A0)
     val (url, setURL) = remember { mutableStateOf("") }
@@ -95,7 +97,9 @@ fun PostScreen() {
                     containerColor = orangeColor,
                     contentColor = Color.Black
                 ),
-                onClick = {}) {
+                onClick = {
+                    navController.navigate("home")
+                }) {
                 Text("등록하기")
             }
         }
@@ -105,5 +109,6 @@ fun PostScreen() {
 @Preview
 @Composable
 private fun PostScreenPrev() {
-    PostScreen()
+    val navController = rememberNavController()
+    PostScreen(navController)
 }

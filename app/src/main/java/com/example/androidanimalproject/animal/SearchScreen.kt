@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun AnimalComponent() {
@@ -29,7 +30,7 @@ fun AnimalComponent() {
 }
 
 @Composable
-fun SearchScreen() {
+fun SearchScreen(navController: NavController) {
     val orangeColor = Color(0xFFFFA938)
     Column {
         Box(
@@ -61,7 +62,9 @@ fun SearchScreen() {
                 .size(56.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(color = orangeColor), // modifier 순서에따라 달라짐
-            onClick = {}) {
+            onClick = {
+                navController.navigate("post")
+            }) {
             Icon(
                 imageVector = Icons.Filled.Add,
                 contentDescription = "추가 등록"
@@ -75,5 +78,5 @@ fun SearchScreen() {
 @Preview
 @Composable
 private fun SearchScreenPrev() {
-    SearchScreen()
+    //SearchScreen()
 }

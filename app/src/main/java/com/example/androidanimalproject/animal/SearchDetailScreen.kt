@@ -19,16 +19,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
-fun SearchDetailScreen() {
+fun SearchDetailScreen(navController: NavController) {
     Column {
         Box(
             modifier = Modifier
                 .height(56.dp)
                 .fillMaxWidth(),
         ){
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                navController.popBackStack()
+            }) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,
                     contentDescription = "뒤로 가기"
@@ -41,5 +44,5 @@ fun SearchDetailScreen() {
 @Preview
 @Composable
 private fun SearchDetailScreenPrev() {
-    SearchDetailScreen()
+    //SearchDetailScreen()
 }
