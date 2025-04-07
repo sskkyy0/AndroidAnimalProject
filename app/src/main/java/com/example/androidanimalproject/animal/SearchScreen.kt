@@ -1,6 +1,7 @@
 package com.example.androidanimalproject.animal
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,9 +30,10 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 
 @Composable
-fun AnimalComponent(animal: Animal) {
+fun AnimalComponent(animal: Animal, onClick: ()->Unit) {
     Box(
         modifier = Modifier.padding(horizontal = 20.dp)
+            .clickable { onClick }
     ) {
         Row {
             Box(
@@ -75,7 +77,9 @@ fun SearchScreen(navController: NavController, animal: List<Animal>) {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             items(animal.size) { index ->
-                AnimalComponent(animal[index])
+                AnimalComponent(animal[index]){
+                    navController.navigate(Routes.Detail(index))
+                }
             }
         }
     }
