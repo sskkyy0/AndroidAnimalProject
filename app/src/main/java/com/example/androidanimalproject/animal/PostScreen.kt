@@ -18,6 +18,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,7 +32,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun PostScreen(navController: NavController) {
+fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnimal: (List<Animal>)-> Unit) {
     val orangeColor = Color(0xFFFFA938)
     val greyColor = Color(0xFFA0A0A0)
     val (url, setURL) = remember { mutableStateOf("") }
@@ -54,7 +55,7 @@ fun PostScreen(navController: NavController) {
                 TextField(
                     value = url, onValueChange = setURL,
                     modifier = Modifier
-                        .height(40.dp)
+                        .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .fillMaxWidth()
                         .background(color = greyColor)
@@ -64,7 +65,7 @@ fun PostScreen(navController: NavController) {
                 TextField(
                     value = name, onValueChange = setName,
                     modifier = Modifier
-                        .height(40.dp)
+                        .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .fillMaxWidth()
                         .background(color = greyColor)
@@ -74,7 +75,7 @@ fun PostScreen(navController: NavController) {
                 TextField(
                     value = address, onValueChange = setAddress,
                     modifier = Modifier
-                        .height(40.dp)
+                        .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .fillMaxWidth()
                         .background(color = greyColor)
@@ -92,13 +93,13 @@ fun PostScreen(navController: NavController) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    .clip(shape = RoundedCornerShape(8.dp)),
+                    .clip(shape = RoundedCornerShape(20.dp)),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = orangeColor,
                     contentColor = Color.Black
                 ),
                 onClick = {
-
+                    onUpdateAnimal(animal+Animal(url,name,"실종 신고",address))
                     navController.navigate("home")
                 }) {
                 Text("등록하기")
@@ -111,5 +112,17 @@ fun PostScreen(navController: NavController) {
 @Composable
 private fun PostScreenPrev() {
     val navController = rememberNavController()
-    PostScreen(navController)
+    val animal = remember {
+        mutableListOf(
+            Animal(
+                "https://cdn.pixabay.com/photo/2023/09/19/12/34/dog-8262506_1280.jpg",
+                "이름",
+                "실종 신고",
+                "광진구 화양동"
+            )
+        )
+    }
+    PostScreen(navController, animal){
+
+    }
 }

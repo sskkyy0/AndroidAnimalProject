@@ -41,7 +41,9 @@ fun AnimalComponent(animal: Animal) {
                     model = animal.url,
                     contentDescription = "강아지 사진"
                 )
-                Box(){
+                Box(
+
+                ){
                     Column {
                         Text(animal.name)
                         Spacer(Modifier.height(10.dp))
@@ -56,14 +58,9 @@ fun AnimalComponent(animal: Animal) {
 }
 
 @Composable
-fun SearchScreen(navController: NavController) {
+fun SearchScreen(navController: NavController, animal: List<Animal>) {
     val orangeColor = Color(0xFFFFA938)
-    val animal = Animal(
-        "https://pixabay.com/ko/photos/%EA%B0%9C-%EA%B0%95%EC%95%84%EC%A7%80-%EC%86%A1%EA%B3%B3%EB%8B%88-%EC%95%A0%EC%99%84-%EB%8F%99%EB%AC%BC-8262506/",
-        "강아디",
-        "실종 상태",
-        "광진구 화양동"
-    )
+
     Column {
         Box(
             modifier = Modifier
@@ -73,11 +70,12 @@ fun SearchScreen(navController: NavController) {
         ) {
             Text("조회하기")
         }
+        Spacer(Modifier.height(20.dp))
         LazyColumn(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            items(5) { index ->
-                AnimalComponent(animal = animal)
+            items(animal.size) { index ->
+                AnimalComponent(animal[index])
             }
         }
     }
@@ -109,5 +107,5 @@ fun SearchScreen(navController: NavController) {
 @Composable
 private fun SearchScreenPrev() {
     val navController = rememberNavController()
-    SearchScreen(navController)
+//    SearchScreen(navController)
 }
