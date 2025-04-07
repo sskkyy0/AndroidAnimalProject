@@ -30,7 +30,7 @@ fun NavGraph(modifier: Modifier = Modifier) {
             SearchScreen(navController, animals)
         }
         composable("detail") {
-            SearchDetailScreen(navController)
+            //SearchDetailScreen(navController)
         }
         composable("post") {
             PostScreen(navController, animals){ Update ->
