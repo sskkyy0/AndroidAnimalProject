@@ -98,6 +98,7 @@ fun PostScreen(navController: NavController) {
                     contentColor = Color.Black
                 ),
                 onClick = {
+
                     navController.navigate("home")
                 }) {
                 Text("등록하기")
