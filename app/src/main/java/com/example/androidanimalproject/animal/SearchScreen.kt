@@ -19,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,27 +33,30 @@ import coil.compose.AsyncImage
 @Composable
 fun AnimalComponent(animal: Animal, onClick: ()->Unit) {
     Box(
-        modifier = Modifier.padding(horizontal = 20.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerShape(8.dp))
             .clickable { onClick }
     ) {
         Row {
             Box(
                 modifier = Modifier.size(130.dp)
+                    .padding(10.dp)
+                    .clip(shape = RoundedCornerShape(8.dp))
             ) {
                 AsyncImage(
                     model = animal.url,
                     contentDescription = "강아지 사진"
                 )
-                Box(
-
-                ){
-                    Column {
-                        Text(animal.name)
-                        Spacer(Modifier.height(10.dp))
-                        Text(animal.status)
-                        Spacer(Modifier.height(31.dp))
-                        Text(animal.address)
-                    }
+            }
+            Box(
+            ){
+                Column {
+                    Text(animal.name)
+                    Spacer(Modifier.height(10.dp))
+                    Text(animal.status)
+                    Spacer(Modifier.height(31.dp))
+                    Text(animal.address)
                 }
             }
         }
@@ -74,7 +78,7 @@ fun SearchScreen(navController: NavController, animal: List<Animal>) {
         }
         Spacer(Modifier.height(20.dp))
         LazyColumn(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 20.dp)
         ) {
             items(animal.size) { index ->
                 AnimalComponent(animal[index]){
@@ -95,7 +99,7 @@ fun SearchScreen(navController: NavController, animal: List<Animal>) {
                 .clip(RoundedCornerShape(20.dp))
                 .background(color = orangeColor), // modifier 순서에따라 달라짐
             onClick = {
-                navController.navigate("post")
+                navController.navigate(Routes.Register)
             }) {
             Icon(
                 imageVector = Icons.Filled.Add,
@@ -103,13 +107,21 @@ fun SearchScreen(navController: NavController, animal: List<Animal>) {
             )
         }
     }
-
-
 }
 
 @Preview
 @Composable
 private fun SearchScreenPrev() {
     val navController = rememberNavController()
-//    SearchScreen(navController)
+    val animal = remember {
+        mutableListOf(
+            Animal(
+                "https://cdn.pixabay.com/photo/2023/09/19/12/34/dog-8262506_1280.jpg",
+                "이름",
+                "실종 신고",
+                "광진구 화양동"
+            )
+        )
+    }
+    SearchScreen(navController,animal)
 }

@@ -2,7 +2,6 @@ package com.example.androidanimalproject.animal
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
@@ -38,7 +37,7 @@ fun NavGraph(modifier: Modifier = Modifier) {
         }
         composable<Routes.Register> {
             PostScreen(navController, animals) { Update ->
-//                animals = Update as SnapshotStateList<Animal>
+                animals = Update as SnapshotStateList<Animal>
             }
         }
     }

@@ -100,7 +100,7 @@ fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnima
                 ),
                 onClick = {
                     onUpdateAnimal(animal+Animal(url,name,"실종 신고",address))
-                    navController.navigate("home")
+                    navController.navigate(Routes.Home)
                 }) {
                 Text("등록하기")
             }
