@@ -1,10 +1,10 @@
 plugins {
     alias(libs.plugins.kotlin.compose)
-    kotlin("plugin.serialization") version "2.0.21" // Serialization
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.dagger.hilt)
-    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -62,21 +62,30 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
 
     // coil
     implementation(libs.coil.kt.coil.compose)
 
     implementation(libs.kotlinx.serialization.json)
 
+    // Network
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlin.serialization.converter)
     implementation(libs.kotlinx.serialization.json)
-    // Hilt
-    implementation(libs.bundles.hilt)
-    kapt(libs.hilt.compiler)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.core)
+    implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.manager)
+
 }

@@ -26,7 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -37,7 +37,7 @@ fun AnimalComponent(animal: Animal, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(8.dp))
-            .clickable { onClick }
+            .clickable { onClick() }
     ) {
         Row {
             Box(
@@ -69,9 +69,8 @@ fun AnimalComponent(animal: Animal, onClick: () -> Unit) {
 fun SearchScreen(
     navController: NavController,
     animal: List<Animal>,
-    viewModel: AnimalViewModel = viewModel()
+    viewModel: AnimalViewModel = hiltViewModel()
 ) {
-    viewModel.getAnimals()
     val orangeColor = Color(0xFFFFA938)
 
     Column {
