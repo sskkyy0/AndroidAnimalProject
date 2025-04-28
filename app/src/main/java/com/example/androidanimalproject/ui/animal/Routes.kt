@@ -1,4 +1,4 @@
-package com.example.androidanimalproject.animal
+package com.example.androidanimalproject.ui.animal
 
 import kotlinx.serialization.Serializable
 
@@ -7,8 +7,8 @@ sealed interface Routes {
     data object Home : Routes
 
     @Serializable
-    data class Detail(val index: Int) :Routes
+    data class Detail(val index: Int) : Routes
 
     @Serializable
-    data object Register:Routes
+    data object Register: Routes
 }

@@ -1,4 +1,4 @@
-package com.example.androidanimalproject.animal
+package com.example.androidanimalproject.ui.animal
 
 data class Animal(
     val url: String,

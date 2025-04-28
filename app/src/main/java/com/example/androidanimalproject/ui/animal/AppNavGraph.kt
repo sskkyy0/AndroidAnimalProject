@@ -1,4 +1,4 @@
-package com.example.androidanimalproject.animal
+package com.example.androidanimalproject.ui.animal
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf

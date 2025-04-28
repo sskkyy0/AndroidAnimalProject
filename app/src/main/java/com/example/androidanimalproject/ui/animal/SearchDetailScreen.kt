@@ -1,4 +1,4 @@
-package com.example.androidanimalproject.animal
+package com.example.androidanimalproject.ui.animal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

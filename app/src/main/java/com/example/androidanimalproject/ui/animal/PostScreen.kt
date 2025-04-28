@@ -1,4 +1,4 @@
-package com.example.androidanimalproject.animal
+package com.example.androidanimalproject.ui.animal
 
 import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.background
@@ -99,7 +99,7 @@ fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnima
                     contentColor = Color.Black
                 ),
                 onClick = {
-                    onUpdateAnimal(animal+Animal(url,name,"실종 신고",address))
+                    onUpdateAnimal(animal+ Animal(url,name,"실종 신고",address))
                     navController.navigate(Routes.Home)
                 }) {
                 Text("등록하기")
