@@ -26,12 +26,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 
 @Composable
-fun AnimalComponent(animal: Animal, onClick: ()->Unit) {
+fun AnimalComponent(animal: Animal, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +41,8 @@ fun AnimalComponent(animal: Animal, onClick: ()->Unit) {
     ) {
         Row {
             Box(
-                modifier = Modifier.size(130.dp)
+                modifier = Modifier
+                    .size(130.dp)
                     .padding(10.dp)
                     .clip(shape = RoundedCornerShape(8.dp))
             ) {
@@ -50,7 +52,7 @@ fun AnimalComponent(animal: Animal, onClick: ()->Unit) {
                 )
             }
             Box(
-            ){
+            ) {
                 Column {
                     Text(animal.name)
                     Spacer(Modifier.height(10.dp))
@@ -64,7 +66,12 @@ fun AnimalComponent(animal: Animal, onClick: ()->Unit) {
 }
 
 @Composable
-fun SearchScreen(navController: NavController, animal: List<Animal>) {
+fun SearchScreen(
+    navController: NavController,
+    animal: List<Animal>,
+    viewModel: AnimalViewModel = viewModel()
+) {
+    viewModel.getAnimals()
     val orangeColor = Color(0xFFFFA938)
 
     Column {
@@ -78,10 +85,12 @@ fun SearchScreen(navController: NavController, animal: List<Animal>) {
         }
         Spacer(Modifier.height(20.dp))
         LazyColumn(
-            modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 20.dp)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(horizontal = 20.dp)
         ) {
             items(animal.size) { index ->
-                AnimalComponent(animal[index]){
+                AnimalComponent(animal[index]) {
                     navController.navigate(Routes.Detail(index))
                 }
             }
@@ -123,5 +132,5 @@ private fun SearchScreenPrev() {
             )
         )
     }
-    SearchScreen(navController,animal)
+    SearchScreen(navController, animal)
 }
