@@ -19,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -68,11 +70,12 @@ fun AnimalComponent(animal: Animal, onClick: () -> Unit) {
 @Composable
 fun SearchScreen(
     navController: NavController,
-    animal: List<Animal>,
+//    animal: List<Animal>,
     viewModel: AnimalViewModel = hiltViewModel()
 ) {
+    viewModel.getAnimals()
+    val animal by viewModel.animals.collectAsStateWithLifecycle()
     val orangeColor = Color(0xFFFFA938)
-
     Column {
         Box(
             modifier = Modifier
@@ -90,7 +93,7 @@ fun SearchScreen(
         ) {
             items(animal.size) { index ->
                 AnimalComponent(animal[index]) {
-                    navController.navigate(Routes.Detail(index))
+                    navController.navigate(Routes.Detail(index=index))
                 }
             }
         }
@@ -131,5 +134,5 @@ private fun SearchScreenPrev() {
             )
         )
     }
-    SearchScreen(navController, animal)
+    SearchScreen(navController)
 }

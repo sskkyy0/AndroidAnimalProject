@@ -29,7 +29,7 @@ fun NavGraph(modifier: Modifier = Modifier) {
         startDestination = Routes.Home
     ) {
         composable<Routes.Home> {
-            SearchScreen(navController, animals)
+            SearchScreen(navController)
         }
         composable<Routes.Detail> { navBackStackEntry ->
             val index: Int = navBackStackEntry.toRoute()
