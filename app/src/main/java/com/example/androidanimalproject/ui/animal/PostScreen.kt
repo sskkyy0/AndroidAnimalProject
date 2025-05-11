@@ -28,16 +28,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnimal: (List<Animal>)-> Unit) {
+fun PostScreen(navController: NavController, viewModel: AnimalViewModel=hiltViewModel()) {
+    val registerAnimal by viewModel.registerAnimal.collectAsStateWithLifecycle()
     val orangeColor = Color(0xFFFFA938)
     val greyColor = Color(0xFFA0A0A0)
-    val (url, setURL) = remember { mutableStateOf("") }
-    val (name, setName) = remember { mutableStateOf("") }
-    val (address, setAddress) = remember { mutableStateOf("") }
+//    val (url, setURL) = remember { mutableStateOf("") }
+//    val (name, setName) = remember { mutableStateOf("") }
+//    val (address, setAddress) = remember { mutableStateOf("") }
     Column {
         Box(
             modifier = Modifier
@@ -53,7 +57,7 @@ fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnima
             Column {
                 Text("사진 url 입력")
                 TextField(
-                    value = url, onValueChange = setURL,
+                    value = registerAnimal.url, onValueChange = {viewModel.updateUrl(it)},
                     modifier = Modifier
                         .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
@@ -63,7 +67,7 @@ fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnima
                 Spacer(modifier = Modifier.height(30.dp))
                 Text("이름 입력")
                 TextField(
-                    value = name, onValueChange = setName,
+                    value = registerAnimal.name, onValueChange = {viewModel.updateName(it)},
                     modifier = Modifier
                         .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
@@ -73,7 +77,7 @@ fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnima
                 Spacer(modifier = Modifier.height(30.dp))
                 Text("주소 입력")
                 TextField(
-                    value = address, onValueChange = setAddress,
+                    value = registerAnimal.address, onValueChange = { viewModel.updateAddress(it) },
                     modifier = Modifier
                         .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
@@ -99,7 +103,7 @@ fun PostScreen(navController: NavController, animal: List<Animal>, onUpdateAnima
                     contentColor = Color.Black
                 ),
                 onClick = {
-                    onUpdateAnimal(animal+ Animal(url,name,"실종 신고",address))
+                    viewModel.postAnimal()
                     navController.navigate(Routes.Home)
                 }) {
                 Text("등록하기")
@@ -122,7 +126,5 @@ private fun PostScreenPrev() {
             )
         )
     }
-    PostScreen(navController, animal){
-
-    }
+    PostScreen(navController)
 }

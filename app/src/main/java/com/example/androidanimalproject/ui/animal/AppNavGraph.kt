@@ -36,9 +36,7 @@ fun NavGraph(modifier: Modifier = Modifier) {
             SearchDetailScreen(navController, animals[index])
         }
         composable<Routes.Register> {
-            PostScreen(navController, animals) { Update ->
-                animals = Update as SnapshotStateList<Animal>
-            }
+            PostScreen(navController)
         }
     }
 }
