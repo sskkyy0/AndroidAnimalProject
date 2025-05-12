@@ -1,5 +1,6 @@
 package com.example.androidanimalproject.ui.animal
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,24 +11,36 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 
 @Composable
-fun SearchDetailScreen(navController: NavController, animal: Animal) {
+fun SearchDetailScreen(
+    navController: NavController,
+    index: Int,
+    viewModel: AnimalDetailViewModel = hiltViewModel()
+) {
+    viewModel.getAnimal(index = index)
+    Log.d("okhttp", index.toString())
+    val animal by viewModel.animal.collectAsStateWithLifecycle()
+
     Column {
         Box(
             modifier = Modifier
                 .height(56.dp)
                 .fillMaxWidth(),
-        ){
+        ) {
             IconButton(onClick = {
                 navController.popBackStack()
             }) {
@@ -39,13 +52,19 @@ fun SearchDetailScreen(navController: NavController, animal: Animal) {
         }
         AsyncImage(
             model = animal.url,
-            contentDescription = animal.name+"사진",
+            contentDescription = animal.name + "사진",
             modifier = Modifier.fillMaxWidth()
         )
-        Box(modifier = Modifier.height(304.dp)
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-            .background(color = Color.White)){
+        Box(
+            modifier = Modifier
+                .height(400.dp)
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
+                .background(color = Color.White)
+        ) {
+            Text(
+                text = animal.name
+            )
         }
     }
 }
@@ -54,6 +73,6 @@ fun SearchDetailScreen(navController: NavController, animal: Animal) {
 @Composable
 private fun SearchDetailScreenPrev() {
     val navController = rememberNavController()
-    val animal = Animal("he", "naen", "so", "home")
-    SearchDetailScreen(navController,animal)
+    val animal = Animal(1,"he", "naen", AnimalStatus.MISSING, "home")
+    SearchDetailScreen(navController, 0)
 }

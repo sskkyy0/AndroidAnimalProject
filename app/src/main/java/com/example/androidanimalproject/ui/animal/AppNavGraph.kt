@@ -16,9 +16,10 @@ fun NavGraph(modifier: Modifier = Modifier) {
     var animals = remember {
         mutableStateListOf(
             Animal(
+                1,
                 "https://cdn.pixabay.com/photo/2023/09/19/12/34/dog-8262506_1280.jpg",
                 "강아디",
-                "실종 신고",
+                AnimalStatus.MISSING,
                 "광진구 화양동"
             )
         )
@@ -32,8 +33,8 @@ fun NavGraph(modifier: Modifier = Modifier) {
             SearchScreen(navController)
         }
         composable<Routes.Detail> { navBackStackEntry ->
-            val index: Int = navBackStackEntry.toRoute()
-            SearchDetailScreen(navController, animals[index])
+            val index  = navBackStackEntry.toRoute<Routes.Detail>().index
+            SearchDetailScreen(navController, index)
         }
         composable<Routes.Register> {
             PostScreen(navController)

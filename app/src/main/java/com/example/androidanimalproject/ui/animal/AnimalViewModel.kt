@@ -24,6 +24,9 @@ class AnimalViewModel @Inject constructor(
     private val _registerAnimal = MutableStateFlow(Animal())
     val registerAnimal = _registerAnimal.asStateFlow()
 
+    private val _animal = MutableStateFlow(Animal())
+    val animal = _animal.asStateFlow()
+
     init {
         getAnimals()
     }
@@ -53,11 +56,11 @@ class AnimalViewModel @Inject constructor(
             it.copy(name=name)
         }
     }
-     fun updateStatus(state:String){
-        _registerAnimal.update {
-            it.copy(status = state)
-        }
-    }
+//     fun updateStatus(state:String){
+//        _registerAnimal.update {
+//            it.copy(status = state)
+//        }
+//    }
      fun updateAddress(address:String){
         _registerAnimal.update {
             it.copy(address = address)

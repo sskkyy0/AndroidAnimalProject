@@ -119,9 +119,10 @@ private fun PostScreenPrev() {
     val animal = remember {
         mutableListOf(
             Animal(
+                1,
                 "https://cdn.pixabay.com/photo/2023/09/19/12/34/dog-8262506_1280.jpg",
                 "이름",
-                "실종 신고",
+                AnimalStatus.MISSING,
                 "광진구 화양동"
             )
         )
